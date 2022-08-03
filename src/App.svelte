@@ -82,7 +82,7 @@
         <br>
         <tr><td><b>Annual Customised Standard Plan Cost</b></td> : <td> {zval.toFixed(2)} $/year </td></tr>
         <br>
-        <!-- <tr><td><b>Sales Commission (in annual plan)</b></td> : <td> {z1val.toFixed(2)} $</td></tr> -->
+        <tr><td><b>Sales Commission (in annual plan)</b></td> : <td> {z1val.toFixed(2)} $</td></tr>
         <br>
         <tr><td><b>Savings if you select yearly plan over monthly plan</b></td> : <td> {pval.toFixed(2)} %</td></tr>
         <br>
