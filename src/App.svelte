@@ -46,6 +46,8 @@
 
     <img src='static/logo1.png' alt='Logo loading..'>
 
+    
+
 <div class='slider'>
 
     <b>Choose number of simultaneous users from below slider</b>
@@ -57,11 +59,14 @@
         <span slot="left" style="font-size: 20px;">&#xf406;</span>
         </Slider>
         <input type="hidden" bind:value={value[0]} on:change={calcPrice} on:keydown={calcPrice}>
+
+
+        <br><br> 
         
 
 
         <MaterialApp>
-        <Button id='buutton' on:click={calcPrice} rounded class="primary-color">Calculate</Button> 
+        <Button id='buutton' on:click={calcPrice} rounded class="primary-color">Calculate</Button> &nbsp;&nbsp;
         <Button id='button' on:click={reset} rounded class="primary-color">Reset</Button>
         </MaterialApp>
             
@@ -70,21 +75,22 @@
     
     
     {#if res}
+    <br>
     <div class='leftalign'><b id="leftalign">Price calculated on :</b> {today_date} <br></div>
     
 	<div class='result'>
         
         
         <table>
-        <tr><td><b>Monthly Customised Standard Plan Cost</b></td> : <td> {yval.toFixed(2)} $/month </td></tr>
+        <tr><td><b>Monthly Customised Standard Plan Cost</b></td>  <td> {yval.toFixed(2)} $/month </td></tr>
         <br>
-        <!-- <tr><td><b>Sales Commission (in monthly plan)</b></td> : <td> {y1val.toFixed(2)} $ </td></tr> -->
+        <!-- <tr><td><b>Sales Commission (in monthly plan)</b></td>  <td> {y1val.toFixed(2)} $ </td></tr> -->
         <br>
-        <tr><td><b>Annual Customised Standard Plan Cost</b></td> : <td> {zval.toFixed(2)} $/year </td></tr>
+        <tr><td><b>Annual Customised Standard Plan Cost</b></td>  <td> {zval.toFixed(2)} $/year </td></tr>
         <br>
-        <!-- <tr><td><b>Sales Commission (in annual plan)</b></td> : <td> {z1val.toFixed(2)} $</td></tr> -->
+        <!-- <tr><td><b>Sales Commission (in annual plan)</b></td>  <td> {z1val.toFixed(2)} $</td></tr> -->
         <br>
-        <tr><td><b>Savings if you select yearly plan over monthly plan</b></td> : <td> {pval.toFixed(2)} %</td></tr>
+        <tr><td><b>Savings if you select yearly plan over monthly plan</b></td>  <td> {pval.toFixed(2)} %</td></tr>
         <br>
         
         <br>
@@ -108,20 +114,21 @@
         
         width: 50%;
         
-        margin-top: 10%;
+        margin-top: 6%;
         
 
         border-radius: 25px;
         border: 2px solid #73AD21;
         padding: 20px;
 
+        //border-style: none;
         height: auto;
         
         
     }
 
     .result{
-        margin-top: 5%;
+        margin-top: 10%;
     }
 
     .slider b{
@@ -141,4 +148,9 @@
     .leftalign{
         text-align: center;
     }
+
+    td {
+        text-align: center;
+    }
+    
 </style>
