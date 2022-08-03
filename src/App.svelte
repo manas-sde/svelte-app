@@ -1,166 +1,144 @@
-<!-- <script>
-	export let name;
-</script>
-
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style> -->
-<!-- 
 <script>
-    import Book from './book.svelte'
-    let title = '';
-    let price = 0;
-    let description = '';
-    function setTitle(event){
-        title = event.target.value;
-    }
-</script>
-<style>
-    h1 {
-        color: purple;
+	import Slider from '@bulatdashiev/svelte-slider';
+    import { Button, MaterialApp } from 'svelte-materialify';
 
-    }
-    section{
-        margin: auto;
-        width :30rem;
+	
+	
+	let value=[0];
+	let yval = 0;
+    let zval = 0;
+    let pval = 0;
+    let y1val = 0;
+    let z1val = 0;
+    let res=false;
 
-    }
-    label,input,textarea{width: 100%}
-</style>
-<section>
-    <div> 
-        <label for="title">Title</label>
-        <input type="text" id="title" value={title} on:input={setTitle}/>
-    </div>
-    <div>
-        <label for="price">Price</label>
-        <input type="number" id="price" value={price} bind:value={price}/>
-    </div>
-    <div>
-        <label for="description">Description</label>
-        <textarea rows="3" id="description" bind:value ={description}/>
-    </div>
-</section>
-<Book bookTitle={title} bookPrice={price} bookDescription={description}/> -->
+    let today_date = new Date();
+	
+	function calcPrice(e) {
+		
+        
+        let xval = value[0]*100 + 300 ;
 
+        yval = ((xval-200)/100)*49+499;
 
+        zval = (((xval-200)/100)*39*12)+4788;
 
+        pval = (yval*12-zval)/zval *100;
 
+        y1val = yval*6/100;
 
-<script>
-	import Book from './book.svelte'
-	import Button from './button.svelte'
-	import Purchase from './purchase.svelte'
+        z1val = 5*zval/100;
 
-	let title = '';
-	let price = 0;
-	let description = '';
+        res = true;
 
-	let books =[];
-	let purchases = [];
-
-	function setTitle(event){
-		title = event.target.value;
+        today_date = today_date.getDate() + '-' + (parseInt(today_date.getMonth())+1) + '-' + today_date.getFullYear();
 	}
 
-	function addBook(){
-		const newBook = {
-			title : title,
-			price : price,
-			description: description
-
-		};
-		books = books.concat(newBook)
-	}
-
-	function purchaseBook(event){
-		const selectedTitle= event.detail;
-		purchases = purchases.concat({
-			...books.find(book => book.title === selectedTitle)
-		});
-	}
-
+    function reset() {
+        value[0] = 0;
+        res = false;
+    }
+	
 </script>
 
+
+<center> 
+
+    <img src='static/logo1.png' alt='Logo loading..'>
+
+<div class='slider'>
+
+    <b>Choose number of simultaneous users from below slider</b>
+
+    <form on:submit|preventDefault={calcPrice}>
+        
+        <center>{value[0]*100 + 300}</center>
+        <Slider max='97' bind:value>
+        <span slot="left" style="font-size: 20px;">&#xf406;</span>
+        </Slider>
+        <input type="hidden" bind:value={value[0]} on:change={calcPrice} on:keydown={calcPrice}>
+        
+
+
+        <MaterialApp>
+        <Button id='buutton' on:click={calcPrice} rounded class="primary-color">Calculate</Button> 
+        <Button id='button' on:click={reset} rounded class="primary-color">Reset</Button>
+        </MaterialApp>
+            
+    </form>
+    
+    
+    
+    {#if res}
+    <div class='leftalign'><b id="leftalign">Price calculated on :</b> {today_date} <br></div>
+    
+	<div class='result'>
+        
+        
+        <table>
+        <tr><td><b>Monthly Customised Standard Plan Cost</b></td> : <td> {yval.toFixed(2)} $/month </td></tr>
+        <br>
+        <!-- <tr><td><b>Sales Commission (in monthly plan)</b></td> : <td> {y1val.toFixed(2)} $ </td></tr> -->
+        <br>
+        <tr><td><b>Annual Customised Standard Plan Cost</b></td> : <td> {zval.toFixed(2)} $/year </td></tr>
+        <br>
+        <!-- <tr><td><b>Sales Commission (in annual plan)</b></td> : <td> {z1val.toFixed(2)} $</td></tr> -->
+        <br>
+        <tr><td><b>Savings if you select yearly plan over monthly plan</b></td> : <td> {pval.toFixed(2)} %</td></tr>
+        <br>
+        
+        <br>
+        
+        </table>
+    </div>
+
+    {/if}
+    
+
+
+
+</div>
+<br>
+<br>
+</center>
+<!-- <Ap/> -->
+
 <style>
-	h1 {
-		color: purple;
-		text-align:center;
+	.slider {
+        
+        width: 50%;
+        
+        margin-top: 10%;
+        
 
-	}
+        border-radius: 25px;
+        border: 2px solid #73AD21;
+        padding: 20px;
 
-	section{
-		margin: 1rem auto;
-		width: 30rem;
-	}
+        height: auto;
+        
+        
+    }
 
-	label,input,textarea{width: 100%}
+    .result{
+        margin-top: 5%;
+    }
+
+    .slider b{
+        text-align: left;
+    }
+
+
+    img{
+        margin-top: 2%;
+        width: 10%;
+        height: 100%;
+        align-items: top;
+    }
+
+   
+
+    .leftalign{
+        text-align: center;
+    }
 </style>
-
-<h1>Book Store</h1>
-
-<section>
-	<h2>Add New Book</h2>
-	<div>
-		<label for="title">Title</label>
-		<input type="text" id="title" value={title} on:input={setTitle}/>
-	</div>
-
-	<div>
-		<label for="price"> Price</label>
-		<input type="number" id="price" bind:value={price}/>
-		<!-- <input type="number" id="price" value={price}/> -->
-	</div>
-
-	<div>
-		<label for="description">Description</label>
-		<textarea rows="3" id="description" bind:value={description}/>
-	</div>
-
-	<Button on:click={addBook}>ADD Book</Button>
-
-</section>
-
-<section>
-	<h2>Stock</h2>
-	{#if books.length === 0}
-		<p>
-			No books in stock.
-		</p>
-	{:else}
-	{#each books as book}
-		<Book bookTitle={book.title}
-		bookPrice={book.price}
-		bookDescription={book.description}
-		on:buy={purchaseBook}
-		/>
-	{/each}
-{/if}
-</section>
-
-<section>
-	<Purchase books ={purchases}  />
-</section>
